@@ -8,16 +8,19 @@
         <table>
           <tr>
             <td rowspan="3">
-              <img height="100" src="{{this.catService.host+'/photoProduct/'+p.id}}" alt=""/>
-              <p>
-                <button (click)="onEditPhoto(p)">
-                  <span class="glyphicon glyphicon-edit"></span>
-                </button>
+              <img height="100" src="{{this.catService.host+'/photoProduct/'+p.id+'?ts=' + getTS()}}" alt=""/>
+              <div *ngIf="isAdmin()">
+                <p>
+                  <button (click)="onEditPhoto(p)">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button></p>
                 <p *ngIf="editPhoto==true && currentProduct==p">
-                <input type="file" (change)="onSelectedFile($event)">
-                <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
-                {{progress}}
+                  <input type="file" (change)="onSelectedFile($event)">
+                  <button class="btn btn-success" (click)="uploadPhoto()">Upload</button>
+                  {{progress}}
                 </p>
+              </div>
+
             </td>
           </tr>
           <tr>

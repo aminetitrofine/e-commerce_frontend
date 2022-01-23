@@ -11,12 +11,19 @@
         <ul class="dropdown-menu">
           <li><a class="clickable" (click)="onProductsPromo()">Promotion</a></li>
           <li><a class="clickable" (click)="onProductsAvailable()">Available</a></li>
-
         </ul>
-      </li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
     </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <a (click)="onLogout()">
+              <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+          </li>
+        </ul>
+
+
   </div>
 </nav>
 <div class="container">

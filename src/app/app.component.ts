@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CatalogueService} from "./catalogue.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,11 @@ export class AppComponent implements OnInit{
   title = 'ecom-web';
   public categories;
   public currentCategory
-  constructor(private catService:CatalogueService, private router:Router) {
+  constructor(private catService:CatalogueService, private router:Router,
+              private authService: AuthenticationService) {
   }
   ngOnInit(): void {
+    this.authService.loadAuthenticatedUser();
     this.getCategories();
   }
 
@@ -45,5 +48,11 @@ export class AppComponent implements OnInit{
   onProductsAvailable() {
     this.currentCategory= undefined;
     this.router.navigateByUrl('/products/4/0');
+  }
+
+  onLogout() {
+    this.authService.removeToken();
+    this.router.navigateByUrl('/login');
+
   }
 }

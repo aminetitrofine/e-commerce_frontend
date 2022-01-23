@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CatalogueService} from "../catalogue.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {AuthenticationService} from "../services/authentication.service";
 
 @Component({
   selector: 'app-products',
@@ -16,12 +17,13 @@ export class ProductsComponent implements OnInit {
   public progress!: number;
   private currentFileUpload: any;
   public title!:string;
+  timestamp:number=0;
 
   constructor(
     public catService:CatalogueService,
     private route: ActivatedRoute,
-    private router: Router
-
+    private router: Router,
+    public authService: AuthenticationService
     ) {
   }
 
@@ -90,7 +92,7 @@ export class ProductsComponent implements OnInit {
         this.progress = Math.round(100 * event.loaded / event.total);
         console.log(this.progress)
       } else if (event instanceof HttpResponse) {
-        this.getProducts('/products/search/selectedProducts')
+        this.timestamp=Date.now();
 
       }
     },err=>{
@@ -100,5 +102,12 @@ export class ProductsComponent implements OnInit {
 
 
     this.selectedFiles = undefined
+  }
+
+  getTS() {
+    return this.timestamp;
+  }
+  public isAdmin(){
+    return this.authService.isAdmin()
   }
 }
